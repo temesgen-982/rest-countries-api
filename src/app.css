@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--color-neutral-grey-950: hsl(200, 15%, 8%); /* (Light Mode Text) */
+	--color-neutral-grey-400: hsl(0, 0%, 50%); /* (Light Mode Input) */
+	--color-neutral-grey-50: hsl(0, 0%, 99%); /* (Light Mode Background) */
+	--color-neutral-white: hsl(0, 100%, 100%); /* (Light Mode Elements) */
+
+	--color-neutral-white: hsl(0, 100%, 100%); /* (Dark Mode Text) */
+	--color-neutral-blue-950: hsl(207, 26%, 17%); /* (Dark Mode Background) */
+	--color-neutral-white: hsl(209, 23%, 22%); /* (Dark Mode Elements) */
+
+	--font-Homepage-Items: 14px;
+	--font-Detail-Page: 16px;
+
+	--font-base: Nunito Sans;
+	--font-weights: 300, 600, 800;
+}
