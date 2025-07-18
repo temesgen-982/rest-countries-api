@@ -3,7 +3,7 @@
 </script>
 
 <a class="dark:bg-neutral-blue-700 rounded-lg shadow-lg" href="/country/{code}">
-	<img src={flag} alt="{name} flag" loading="lazy" width="264" height="160" />
+	<img src={flag} alt="{name} flag" loading="lazy" height="160" />
 	<div class="flex flex-col gap-3 p-5">
 		<h1 class="text-xl">{name}</h1>
 		<div class="flex flex-col gap-1">
