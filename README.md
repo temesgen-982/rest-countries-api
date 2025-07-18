@@ -1,60 +1,14 @@
-# sv
-
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
 # Frontend Mentor - REST Countries API with color theme switcher solution
 
 This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-## Table of contents
-
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
+## Table of Contents
+- [Features](#features)
+- [Demo](#demo)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Folder Structure](#folder-structure)
 - [Author](#author)
-
-## Overview
 
 ### The challenge
 
@@ -67,39 +21,90 @@ Users should be able to:
 - Click through to the border countries on the detail page
 - Toggle the color scheme between light and dark mode _(optional)_
 
-### Screenshot
-
-![](./screenshot.jpg)
+## Demo
+<!-- Add a screenshot and live link if available -->
+![Screenshot](./screenshot.jpg)
 
 ### Links
 
 - Solution URL: [Add solution URL here](https://your-solution-url.com)
 - Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
-## My process
-
-### Built with
+## Built with
 
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- [SvelteKit](https://kit.svelte.dev/) – Application framework
+- [TypeScript](https://www.typescriptlang.org/) – Type safety
+- [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS
+- [Vite](https://vitejs.dev/) – Build tool
+- [@lucide/svelte](https://lucide.dev/) – Icon library
+- [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/) – Linting and formatting
+- [Adapter-Vercel](https://kit.svelte.dev/docs/adapter-vercel) – Deployment (Vercel)
 
-### What I learned
+## Getting Started
 
-### Continued development
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm, pnpm, or yarn
 
-### Useful resources
+### Installation
+```bash
+# Install dependencies
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+### Development
+```bash
+npm run dev
+# or
+pnpm dev
+# or
+yarn dev
+```
+Visit [http://localhost:5173](http://localhost:5173) (or as indicated in the terminal).
 
-## Author
+### Building for Production
+```bash
+npm run build
+```
+Preview the production build:
+```bash
+npm run preview
+```
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+### Deployment
+This project uses the Vercel adapter for SvelteKit. See [SvelteKit deployment docs](https://kit.svelte.dev/docs/adapters) for more info.
+
+## Folder Structure
+```
+rest-countries-api/
+├── src/
+│   ├── app.css                # Tailwind and custom styles
+│   ├── app.html               # HTML template with theme initialization
+│   ├── lib/
+│   │   ├── components/        # Svelte components (CountryCard, ThemeToggleBtn)
+│   │   ├── data/              # countries.json (static data)
+│   │   ├── server/            # Data access functions
+│   │   ├── theme.svelte.ts    # Theme store and logic
+│   │   └── types.ts           # TypeScript types
+│   └── routes/                # SvelteKit routes (pages)
+│       ├── +layout.svelte     # App layout and theme toggle
+│       ├── +page.svelte       # Homepage (country list, search, filter)
+│       └── country/[slug]/    # Country detail pages
+├── static/                    # Static assets (favicon, etc.)
+├── package.json               # Project metadata and scripts
+└── ...
+```
+
+## Theme Switcher
+- The theme toggle button in the header allows switching between light and dark mode.
+- The current theme is stored in `localStorage` and applied on page load.
+- Theme logic is managed in `src/lib/theme.svelte.ts` and `src/lib/components/ThemeToggleBtn.svelte`.
