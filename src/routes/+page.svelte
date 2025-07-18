@@ -1,28 +1,30 @@
 <script>
 	import { Search } from '@lucide/svelte';
-	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
+	// import { goto } from '$app/navigation';
+	// import { page } from '$app/state';
 
 	import CountryCard from '$lib/components/CountryCard.svelte';
 
 	let { data } = $props();
 
-	let selectedRegion = $state(data.currentRegion ?? '');
-	let searchQuery = $state(data.currentQuery ?? '');
+	let searchQuery = $state('');
+	let selectedRegion = $state('');
+	// let selectedRegion = $state(data.currentRegion ?? '');
+	// let searchQuery = $state(data.currentQuery ?? '');
 
 	// effect to handle region changes and query changes
-	$effect(() => {
-		const url = new URL(page.url);
+	// $effect(() => {
+	// 	const url = new URL(page.url);
 
-		if (selectedRegion) url.searchParams.set('region', selectedRegion);
-		else url.searchParams.delete('region');
+	// 	if (selectedRegion) url.searchParams.set('region', selectedRegion);
+	// 	else url.searchParams.delete('region');
 
-		if (searchQuery)
-			url.searchParams.set('q', searchQuery); // <-- Add search logic
-		else url.searchParams.delete('q');
+	// 	if (searchQuery)
+	// 		url.searchParams.set('q', searchQuery); // <-- Add search logic
+	// 	else url.searchParams.delete('q');
 
-		goto(url, { replaceState: true, keepFocus: true });
-	});
+	// 	goto(url, { replaceState: true, keepFocus: true });
+	// });
 </script>
 
 <main class="flex flex-col gap-4 px-3 py-4">
