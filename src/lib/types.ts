@@ -9,18 +9,17 @@ export interface Country {
 	population: number;
 	region: string;
 	subregion: string;
-	capital: string;
+	capital?: string;
 	topLevelDomain: string[];
-	currencies: {
+	currencies?: {
 		code: string;
 		name: string;
 		symbol: string;
 	}[];
-	languages: {
+	languages?: {
 		name: string;
-		nativeName: string;
 	}[];
-	borders: string[];
+	borders?: string[];
 	flags: {
 		svg: string;
 		png: string;

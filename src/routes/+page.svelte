@@ -25,7 +25,7 @@
 				population={country.population}
 				name={country.name}
 				region={country.region}
-				capital={country.capital}
+				capital={country.capital ?? 'N/A'}
 			/>
 		{/each}
 	</div>

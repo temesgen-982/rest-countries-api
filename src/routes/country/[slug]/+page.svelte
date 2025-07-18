@@ -18,15 +18,23 @@
 			<p>Top Level Domain: <span>{data.country.topLevelDomain}</span></p>
 			<div class="flex gap-2">
 				<p>Currencies:</p>
-				{#each data.country.currencies as currency}
-					<span>{currency.name}</span>
-				{/each}
+				{#if data.country.currencies}
+					{#each data.country.currencies as currency}
+						<span>{currency.name}</span>
+					{/each}
+				{:else}
+					<span>N/A</span>
+				{/if}
 			</div>
 			<div class="flex gap-2">
 				<p>Languages:</p>
-				{#each data.country.languages as language}
-					<span>{language.name}</span>
-				{/each}
+				{#if data.country.languages}
+					{#each data.country.languages as language}
+						<span>{language.name}</span>
+					{/each}
+				{:else}
+					<span>N/A</span>
+				{/if}
 			</div>
 		</div>
 		<div class="flex">
