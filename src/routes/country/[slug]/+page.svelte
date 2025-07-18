@@ -1,12 +1,35 @@
-<script>
+<script lang="ts">
 	import { MoveLeft } from '@lucide/svelte';
+	import { base } from '$app/paths';
+	import { onMount } from 'svelte';
+
 	let { data } = $props();
+
+	let previousPage = $state('/');
+
+	// We use onMount to safely access `document`
+	onMount(() => {
+		// If the user came from another page on this site, set the previous page.
+		// Otherwise, the fallback remains the homepage.
+		if (document.referrer && new URL(document.referrer).origin === location.origin) {
+			previousPage = document.referrer;
+		}
+	});
+
+	// A handler to go back programmatically
+	function goBack(event: Event) {
+		// This prevents the browser from following the href link
+		event.preventDefault();
+		history.back();
+	}
 </script>
 
-<button
+<a
+	href={previousPage}
+	onclick={goBack}
 	class="dark:bg-neutral-blue-700 mx-5 my-7 flex items-center gap-2 rounded px-4 py-3 shadow-lg md:mx-20"
 	><MoveLeft size={20} strokeWidth={1.25} /> Back
-</button>
+</a>
 <div class="flex flex-col px-5 py-6 md:flex-row md:gap-10 md:px-20">
 	<div class="md:w-1/2"><img src={data.country.flags.svg} alt="{data.country.name} flag" /></div>
 	<div class="grid gap-5 py-3 md:w-1/2 md:grid-cols-2">
