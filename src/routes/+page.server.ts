@@ -1,10 +1,15 @@
-// src/routes/+page.server.ts
-import { getCountries } from '$lib/server/database';
+import { findCountries } from '$lib/server/database';
 
-export function load() {
-	const allCountries = getCountries();
+export function load({ url }) {
+	const region = url.searchParams.get('region');
+	const query = url.searchParams.get('q'); // 'q' is a common convention for search
+
+	const countries = findCountries({ region, query });
+
 	return {
-		countries: allCountries
+		countries,
+		currentRegion: region,
+		currentQuery: query
 	};
 }
 

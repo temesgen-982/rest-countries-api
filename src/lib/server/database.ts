@@ -39,9 +39,37 @@ export function getCountry(code: string): Country | undefined {
 	return allCountries.find((c) => c.alpha3Code.toLowerCase() === code.toLowerCase()) ?? undefined;
 }
 
+// src/lib/server/database.ts
+
+// ... existing functions ...
+
 /**
- * Filters countries by their region
+ * Searches for countries by name.
+ * @param {string} query
+ * @returns {Country[]}
  */
-export function filterCountries(region: string): Country[] {
-	return allCountries.filter((c) => c.region === region);
+export function searchCountries(query: string): Country[] {
+	// A simple, case-insensitive search
+	return allCountries.filter((c) => c.name.toLowerCase().includes(query.toLowerCase()));
+}
+
+// A function that can apply multiple filters
+export function findCountries({
+	region,
+	query
+}: {
+	region?: string | null;
+	query?: string | null;
+}): Country[] {
+	let countries = allCountries;
+
+	if (region) {
+		countries = countries.filter((c) => c.region === region);
+	}
+
+	if (query) {
+		countries = countries.filter((c) => c.name.toLowerCase().includes(query.toLowerCase()));
+	}
+
+	return countries;
 }
