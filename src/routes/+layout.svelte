@@ -5,8 +5,12 @@
 	let { children } = $props();
 </script>
 
-<main class="bg-neutral-grey-50 text-neutral-grey-950 dark:bg-neutral-blue-950 dark:text-white">
-	<header class="flex justify-between border px-3 py-6">
+<main
+	class="bg-neutral-grey-50 text-neutral-grey-950 dark:bg-neutral-blue-950 min-h-screen dark:text-white"
+>
+	<header
+		class="dark:bg-neutral-blue-700 bg-neutral-white flex justify-between px-3 py-6 shadow md:px-20"
+	>
 		<h1>Where in the world?</h1>
 		<ThemeToggleBtn />
 	</header>

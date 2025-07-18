@@ -12,7 +12,7 @@
 
 	--color-neutral-white: hsl(0, 100%, 100%); /* (Dark Mode Text) */
 	--color-neutral-blue-950: hsl(207, 26%, 17%); /* (Dark Mode Background) */
-	--color-neutral-white: hsl(209, 23%, 22%); /* (Dark Mode Elements) */
+	--color-neutral-blue-700: hsl(209, 23%, 22%); /* (Dark Mode Elements) */
 
 	--font-Homepage-Items: 14px;
 	--font-Detail-Page: 16px;
