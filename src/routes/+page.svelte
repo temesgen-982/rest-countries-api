@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Search } from '@lucide/svelte';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
@@ -17,33 +17,38 @@
 		isMounted = true;
 	});
 
-	// This effect syncs our UI state to the URL, which triggers server reloads
-	$effect(() => {
-		if (!isMounted) return;
+	let debounceTimer: ReturnType<typeof setTimeout>;
 
-		// The effect re-runs on every keystroke.
-		// `setTimeout` starts a new timer.
-		const timeoutId = setTimeout(() => {
-			console.log('Navigating...');
-			const url = new URL(page.url);
+	// This is a shared function that builds the URL from our state.
+	// It's the single source of truth for navigation.
+	function navigateWithFilters() {
+		// Use `location.origin` and `location.pathname` which are always available in browser event handlers
+		const url = new URL(location.origin + location.pathname);
 
-			if (selectedRegion) url.searchParams.set('region', selectedRegion);
-			else url.searchParams.delete('region');
+		if (selectedRegion) {
+			url.searchParams.set('region', selectedRegion);
+		}
+		if (searchQuery) {
+			url.searchParams.set('q', searchQuery);
+		}
 
-			if (searchQuery) url.searchParams.set('q', searchQuery);
-			else url.searchParams.delete('q');
+		goto(url.href, { replaceState: true, keepFocus: true, noScroll: true });
+	}
 
-			goto(url.href, { replaceState: true, keepFocus: true, noScroll: true });
-		}, 300); // 300ms debounce
+	// Handler for the SEARCH INPUT - this one is debounced.
+	function onSearchInput() {
+		clearTimeout(debounceTimer);
+		debounceTimer = setTimeout(() => {
+			navigateWithFilters();
+		}, 300); // 300ms delay
+	}
 
-		// THE FIX: Return a cleanup function.
-		// This function will automatically run BEFORE the effect runs again,
-		// or when the component is destroyed.
-		return () => {
-			console.log('Clearing previous timeout...');
-			clearTimeout(timeoutId);
-		};
-	});
+	// Handler for the REGION DROPDOWN - this one is instant.
+	function onRegionChange() {
+		// A region change should be immediate. If a search is pending, cancel it.
+		clearTimeout(debounceTimer);
+		navigateWithFilters();
+	}
 </script>
 
 <main class="flex flex-col gap-4 px-3 py-4">
@@ -54,6 +59,7 @@
 				<input
 					type="text"
 					bind:value={searchQuery}
+					oninput={onSearchInput}
 					placeholder="Search for a country..."
 					class="border-0 bg-transparent"
 				/>
@@ -61,6 +67,7 @@
 		</div>
 		<select
 			bind:value={selectedRegion}
+			onchange={onRegionChange}
 			class="dark:bg-neutral-blue-700 bg-neutral-white justify-start rounded border-0 text-left shadow md:px-25 md:py-5"
 		>
 			<option value="">Filter by region:</option>
@@ -73,7 +80,7 @@
 	</div>
 	<div class="grid gap-10 p-3 md:grid-cols-4 md:px-10">
 		{#await data.countries}
-			<p>Check this out</p>
+			<p>Loading Countries...</p>
 		{:then countries}
 			{#each countries as country (country.name)}
 				<CountryCard
